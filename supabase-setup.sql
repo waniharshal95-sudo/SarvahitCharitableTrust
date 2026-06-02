@@ -6,9 +6,11 @@ create table if not exists public.volunteer_registrations (
   city text not null,
   interest text not null,
   availability text not null,
-  address text not null,
   created_at timestamptz not null default now()
 );
+
+alter table public.volunteer_registrations
+drop column if exists address;
 
 alter table public.volunteer_registrations enable row level security;
 

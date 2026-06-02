@@ -454,7 +454,6 @@
         city: row.city,
         interest: row.interest,
         availability: row.availability,
-        address: row.address,
         joinedAt: row.created_at
       }));
     }
@@ -522,7 +521,6 @@
                 <div>City: ${escapeHtml(volunteer.city)}</div>
                 <div>Work: ${escapeHtml(volunteer.interest)}</div>
                 <div>Time: ${escapeHtml(volunteer.availability)}</div>
-                <div>Address: ${escapeHtml(volunteer.address)}</div>
               </article>
             `).join("")
           : "<p>No volunteer registered yet.</p>";
