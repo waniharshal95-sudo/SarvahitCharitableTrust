@@ -146,6 +146,12 @@
       color: var(--green);
     }
 
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu,
+    .dropdown[open] .dropdown-menu {
+      display: grid;
+    }
+
     .dropdown summary::-webkit-details-marker {
       display: none;
     }
@@ -163,7 +169,7 @@
       left: 0;
       min-width: 190px;
       padding: 8px;
-      display: grid;
+      display: none;
       gap: 4px;
       background: #fff;
       border: 1px solid var(--line);
@@ -200,6 +206,13 @@
       gap: 8px;
     }
 
+    .topbar-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      margin-left: auto;
+    }
+
     .social-icon {
       width: 34px;
       height: 34px;
@@ -221,6 +234,22 @@
       background: rgba(255, 255, 255, 0.12);
       border-color: rgba(255, 255, 255, 0.25);
       color: #fff;
+    }
+
+    .admin-login-link {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 8px;
+      padding: 7px 12px;
+      color: #fff;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .admin-login-link:hover,
+    .admin-login-link:focus {
+      background: #fff;
+      color: var(--green-dark);
+      outline: none;
     }
 
     .social-icon:hover,
@@ -503,6 +532,145 @@
       padding: 14px 16px;
       font-weight: 700;
       color: #6d4811;
+    }
+
+    .payment-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .copy-btn,
+    .qr-btn {
+      min-height: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--green-dark);
+      padding: 8px 12px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+    }
+
+    .copy-btn:hover,
+    .copy-btn:focus,
+    .qr-btn:hover,
+    .qr-btn:focus {
+      background: var(--green);
+      color: #fff;
+      outline: none;
+    }
+
+    .notice-band {
+      background: #fff6df;
+      border-top: 1px solid #efd293;
+      border-bottom: 1px solid #efd293;
+      padding: 18px 20px;
+    }
+
+    .notice-box {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .notice-label {
+      background: var(--gold);
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 800;
+    }
+
+    .notice-text {
+      margin: 0;
+      color: #6d4811;
+      font-weight: 700;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .review-viewer {
+      display: grid;
+      gap: 14px;
+    }
+
+    .review-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .review-arrow {
+      width: 44px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--green-dark);
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .review-arrow:hover,
+    .review-arrow:focus {
+      background: var(--green);
+      color: #fff;
+      outline: none;
+    }
+
+    .review-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .review-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 12px 34px rgba(20, 30, 36, 0.07);
+    }
+
+    .review-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .review-card strong {
+      color: var(--green-dark);
+      font-family: "Poppins", system-ui, sans-serif;
+    }
+
+    .review-form-box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 34px rgba(20, 30, 36, 0.07);
+      padding: 24px;
+    }
+
+    .qr-preview {
+      width: min(260px, 100%);
+      display: block;
+      margin: 8px auto 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
     }
 
     .modal-overlay {
@@ -839,7 +1007,9 @@
       .stats,
       .work-grid,
       .donation-layout,
-      .contact-grid {
+      .contact-grid,
+      .review-layout,
+      .review-grid {
         grid-template-columns: 1fr 1fr;
       }
 
@@ -907,7 +1077,13 @@
       .work-grid,
       .donation-layout,
       .contact-grid,
-      .gallery {
+      .gallery,
+      .review-layout,
+      .review-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .notice-box {
         grid-template-columns: 1fr;
       }
 
@@ -955,10 +1131,13 @@
   <div class="topbar">
     <div class="topbar-inner">
       <span>Sankalp Charitable Trust | Help today. Hope for tomorrow.</span>
-      <div class="social-links" aria-label="Social media links">
-        <a class="social-icon" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">f</a>
-        <a class="social-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">IG</a>
-        <a class="social-icon" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">in</a>
+      <div class="topbar-actions">
+        <div class="social-links" aria-label="Social media links">
+          <a class="social-icon" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">f</a>
+          <a class="social-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">IG</a>
+          <a class="social-icon" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">in</a>
+        </div>
+        <a class="admin-login-link" href="admin.html">Admin Login</a>
       </div>
     </div>
   </div>
@@ -984,6 +1163,7 @@
           </div>
         </details>
         <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
         <a class="btn btn-primary" href="#payment-window" data-open-modal="payment-window">Donate Now</a>
       </div>
@@ -1007,12 +1187,19 @@
 
     <div class="wrap">
       <div class="stats" aria-label="Trust impact highlights">
-        <div class="stat"><strong>0+</strong>Food packets distributed</div>
-        <div class="stat"><strong>0+</strong>Students supported</div>
-        <div class="stat"><strong>0+</strong>Medical help cases</div>
+        <div class="stat"><strong id="food-count">0+</strong>Food packets distributed</div>
+        <div class="stat"><strong id="student-count">0+</strong>Students supported</div>
+        <div class="stat"><strong id="medical-count">0+</strong>Medical help cases</div>
         <div class="stat"><strong id="volunteer-count">0</strong>Volunteers joined trust</div>
       </div>
     </div>
+
+    <section class="notice-band" aria-label="Trust notice">
+      <div class="notice-box">
+        <span class="notice-label" id="notice-title">Notice</span>
+        <p class="notice-text" id="notice-text">New food distribution and education support activities will be announced here.</p>
+      </div>
+    </section>
 
     <section id="work">
       <div class="wrap">
@@ -1088,7 +1275,11 @@
               <td>Chinchwadgaon</td>
             </tr>
           </table>
-          <div class="upi">UPI ID: Sankalpcharitabletrust@upi</div>
+          <div class="upi">UPI ID: <span class="upi-value">Sankalpcharitabletrust@upi</span></div>
+          <div class="payment-actions">
+            <button class="copy-btn" type="button" data-copy-upi title="Copy UPI ID">&#128203; Copy UPI</button>
+            <button class="qr-btn" type="button" data-open-modal="qr-window">Show QR Code</button>
+          </div>
         </div>
       </div>
     </section>
@@ -1124,6 +1315,43 @@
             <img src="../work/Do-Blind-People-Dream.jpg" alt="Community support work" />
             <figcaption>Community support work</figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Trusted Person Review</h2>
+          <p>Visitors can share their name and review for the trust. Admin can remove unsuitable reviews from the admin page.</p>
+        </div>
+        <div class="review-layout">
+          <div class="review-form-box">
+            <h3>Give Your Review</h3>
+            <form id="review-form">
+              <div class="form-grid">
+                <label class="full">
+                  Your Name
+                  <input name="name" required />
+                </label>
+                <label class="full">
+                  Your Review
+                  <textarea name="review" required></textarea>
+                </label>
+                <div class="full">
+                  <button class="btn btn-primary" type="submit">Submit Review</button>
+                </div>
+              </div>
+            </form>
+            <div class="save-message" id="review-message">Review submitted successfully.</div>
+          </div>
+          <div class="review-viewer">
+            <div class="review-grid" id="review-list" aria-live="polite"></div>
+            <div class="review-controls" aria-label="Review controls">
+              <button class="review-arrow" type="button" id="review-prev" aria-label="Previous reviews">&#8249;</button>
+              <button class="review-arrow" type="button" id="review-next" aria-label="Next reviews">&#8250;</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1182,7 +1410,11 @@
             <td>Chinchwadgaon</td>
           </tr>
         </table>
-        <div class="upi">UPI ID: Sankalpcharitabletrust@upi</div>
+        <div class="upi">UPI ID: <span class="upi-value">Sankalpcharitabletrust@upi</span></div>
+        <div class="payment-actions">
+          <button class="copy-btn" type="button" data-copy-upi title="Copy UPI ID">&#128203; Copy UPI</button>
+          <button class="qr-btn" type="button" data-open-modal="qr-window">Show QR Code</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1246,30 +1478,6 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="owner-window" hidden role="dialog" aria-modal="true" aria-labelledby="owner-title">
-    <div class="modal-window">
-      <div class="modal-head">
-        <h2 id="owner-title">Owner Volunteer Data</h2>
-        <button class="modal-close" type="button" data-close-modal aria-label="Close owner window">x</button>
-      </div>
-      <div class="modal-body">
-        <p>This area is for the trust owner only.</p>
-        <form id="owner-form">
-          <div class="form-grid">
-            <label class="full">
-              Owner PIN
-              <input name="pin" type="password" required />
-            </label>
-            <div class="full">
-              <button class="btn btn-primary" type="submit">Show Volunteer Data</button>
-            </div>
-          </div>
-        </form>
-        <div class="owner-list" id="owner-list"></div>
-      </div>
-    </div>
-  </div>
-
   <div class="modal-overlay" id="gallery-window" hidden role="dialog" aria-modal="true" aria-labelledby="gallery-title">
     <div class="modal-window gallery-modal-window">
       <div class="modal-head">
@@ -1289,18 +1497,36 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="qr-window" hidden role="dialog" aria-modal="true" aria-labelledby="qr-title">
+    <div class="modal-window">
+      <div class="modal-head">
+        <h2 id="qr-title">Donation QR Code</h2>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close QR code">x</button>
+      </div>
+      <div class="modal-body">
+        <p>Temporary QR code for UPI ID: <strong>Sankalpcharitabletrust@upi</strong></p>
+        <img class="qr-preview" src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=Sankalpcharitabletrust%40upi" alt="Temporary donation QR code" />
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="footer-inner">
       <span>© 2026 Sankalp Charitable Trust. All rights reserved.</span>
-      <button class="footer-action" type="button" data-open-modal="owner-window">Owner</button>
+      <span>Made for social work, donation and community support.</span>
     </div>
   </footer>
   <script>
-    const OWNER_PIN = "1234";
-    const SUPABASE_URL = "";
-    const SUPABASE_ANON_KEY = "";
+    const SUPABASE_URL = "https://adbwqjzlqkaatvhzpudk.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_Ei3Ef2mTTpPeOG7P87gTug_Bky1IF5A";
     const SUPABASE_TABLE = "volunteer_registrations";
+    const SUPABASE_REVIEW_TABLE = "trusted_reviews";
     const volunteerCount = document.getElementById("volunteer-count");
+    const TRUST_STATS_KEY = "trustImpactStats";
+    const TRUST_NOTICE_KEY = "trustNotice";
+    const TRUST_REVIEWS_KEY = "trustReviews";
+    let allReviews = [];
+    let activeReviewIndex = 0;
 
     function supabaseEnabled() {
       return Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
@@ -1401,6 +1627,108 @@
       }
     }
 
+    function loadImpactStats() {
+      const stats = JSON.parse(localStorage.getItem(TRUST_STATS_KEY) || "{}");
+      const foodCount = document.getElementById("food-count");
+      const studentCount = document.getElementById("student-count");
+      const medicalCount = document.getElementById("medical-count");
+      if (foodCount) foodCount.textContent = `${stats.foodPackets || 0}+`;
+      if (studentCount) studentCount.textContent = `${stats.studentsSupported || 0}+`;
+      if (medicalCount) medicalCount.textContent = `${stats.medicalCases || 0}+`;
+    }
+
+    function loadNotice() {
+      const notice = JSON.parse(localStorage.getItem(TRUST_NOTICE_KEY) || "{}");
+      const title = document.getElementById("notice-title");
+      const text = document.getElementById("notice-text");
+      if (title && notice.title) title.textContent = notice.title;
+      if (text && notice.message) text.textContent = notice.message;
+    }
+
+    function getLocalReviews() {
+      const savedReviews = JSON.parse(localStorage.getItem(TRUST_REVIEWS_KEY) || "[]");
+      if (savedReviews.length) return savedReviews;
+      return [
+        {
+          name: "Rahul Patil",
+          review: "The trust works with sincerity and reaches people who truly need support."
+        },
+        {
+          name: "Priya Sharma",
+          review: "Donation communication is clear, and the team is active during local help drives."
+        },
+        {
+          name: "Amit Jadhav",
+          review: "I appreciate their education and food support initiatives for families in need."
+        }
+      ];
+    }
+
+    function saveReviews(reviews) {
+      localStorage.setItem(TRUST_REVIEWS_KEY, JSON.stringify(reviews));
+    }
+
+    async function loadReviews() {
+      if (!supabaseEnabled()) return getLocalReviews();
+      const rows = await supabaseRequest(`${SUPABASE_REVIEW_TABLE}?select=*&order=created_at.desc`);
+      return rows.map((row) => ({
+        id: row.id,
+        name: row.name,
+        review: row.review,
+        createdAt: row.created_at
+      }));
+    }
+
+    async function addReview(data) {
+      if (!supabaseEnabled()) {
+        const reviews = getLocalReviews();
+        reviews.unshift({
+          name: data.name,
+          review: data.review,
+          createdAt: new Date().toISOString()
+        });
+        saveReviews(reviews);
+        return;
+      }
+      await supabaseRequest(SUPABASE_REVIEW_TABLE, {
+        method: "POST",
+        body: JSON.stringify({
+          name: data.name,
+          review: data.review
+        })
+      });
+    }
+
+    async function renderReviews() {
+      const list = document.getElementById("review-list");
+      if (!list) return;
+      allReviews = await loadReviews();
+      if (!allReviews.length) {
+        list.innerHTML = "<p>No review submitted yet.</p>";
+        return;
+      }
+      const visibleReviews = [];
+      const count = Math.min(3, allReviews.length);
+      for (let i = 0; i < count; i += 1) {
+        visibleReviews.push(allReviews[(activeReviewIndex + i) % allReviews.length]);
+      }
+      list.innerHTML = visibleReviews.map((item) => `
+        <article class="review-card">
+          <p>${escapeHtml(item.review)}</p>
+          <strong>${escapeHtml(item.name)}</strong>
+        </article>
+      `).join("");
+    }
+
+    async function shiftReviews(direction) {
+      if (!allReviews.length) {
+        allReviews = await loadReviews();
+      }
+      if (!allReviews.length) return;
+      activeReviewIndex = (activeReviewIndex + direction + allReviews.length) % allReviews.length;
+      await renderReviews();
+    }
+
     function escapeHtml(value) {
       return String(value || "").replace(/[&<>"']/g, (char) => ({
         "&": "&amp;",
@@ -1463,6 +1791,21 @@
       button.addEventListener("click", closeModals);
     });
 
+    document.querySelectorAll("[data-copy-upi]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const upi = document.querySelector(".upi-value")?.textContent.trim() || "Sankalpcharitabletrust@upi";
+        try {
+          await navigator.clipboard.writeText(upi);
+          button.textContent = "Copied";
+          setTimeout(() => {
+            button.innerHTML = "&#128203; Copy UPI";
+          }, 1600);
+        } catch (error) {
+          button.textContent = upi;
+        }
+      });
+    });
+
     document.querySelectorAll(".modal-overlay").forEach((modal) => {
       modal.addEventListener("click", (event) => {
         if (event.target === modal) {
@@ -1500,53 +1843,25 @@
       }
     });
 
-    async function renderOwnerVolunteers() {
-      const ownerList = document.getElementById("owner-list");
-      const volunteers = await loadVolunteers();
-      ownerList.innerHTML = volunteers.length
-        ? volunteers.map((volunteer, index) => `
-            <div class="owner-item">
-              <div class="owner-item-top">
-                <strong>${escapeHtml(volunteer.name)}</strong>
-                <button class="delete-volunteer" type="button" data-delete-volunteer="${index}">Delete</button>
-              </div>
-              Mobile: ${escapeHtml(volunteer.phone)}<br>
-              Email: ${escapeHtml(volunteer.email)}<br>
-              City: ${escapeHtml(volunteer.city)}<br>
-              Work: ${escapeHtml(volunteer.interest)}<br>
-              Time: ${escapeHtml(volunteer.availability)}<br>
-              Address: ${escapeHtml(volunteer.address)}
-            </div>
-          `).join("")
-        : "<p>No volunteer registered yet.</p>";
-    }
-
-    document.getElementById("owner-form")?.addEventListener("submit", async (event) => {
+    document.getElementById("review-form")?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const form = event.currentTarget;
-      const pin = new FormData(form).get("pin");
-      const ownerList = document.getElementById("owner-list");
-
-      if (pin !== OWNER_PIN) {
-        ownerList.innerHTML = "<p>Wrong PIN.</p>";
-        return;
-      }
-
+      const data = Object.fromEntries(new FormData(form).entries());
+      const message = document.getElementById("review-message");
       try {
-        await renderOwnerVolunteers();
+        await addReview(data);
+        form.reset();
+        activeReviewIndex = 0;
+        await renderReviews();
+        message.textContent = "Review submitted successfully.";
+        message.style.display = "block";
+        setTimeout(() => {
+          message.style.display = "none";
+        }, 2400);
       } catch (error) {
-        ownerList.innerHTML = "<p>Could not load volunteer data. Please check Supabase settings.</p>";
+        message.textContent = "Review submit failed. Please check settings and try again.";
+        message.style.display = "block";
       }
-    });
-
-    document.getElementById("owner-list")?.addEventListener("click", async (event) => {
-      const deleteButton = event.target.closest("[data-delete-volunteer]");
-      if (!deleteButton) return;
-      const index = Number(deleteButton.dataset.deleteVolunteer);
-      const volunteers = await loadVolunteers();
-      await deleteVolunteer(volunteers[index], index);
-      await updateVolunteerCount();
-      await renderOwnerVolunteers();
     });
 
     const galleryItems = Array.from(document.querySelectorAll(".gallery figure")).map((figure) => {
@@ -1592,6 +1907,17 @@
       showGalleryImage(activeGalleryIndex + 1);
     });
 
+    document.getElementById("review-prev")?.addEventListener("click", () => {
+      shiftReviews(-1);
+    });
+
+    document.getElementById("review-next")?.addEventListener("click", () => {
+      shiftReviews(1);
+    });
+
+    loadImpactStats();
+    loadNotice();
+    renderReviews().catch(() => {});
     updateVolunteerCount().catch(() => {
       if (volunteerCount) {
         volunteerCount.textContent = getVolunteers().length;
