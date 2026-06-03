@@ -236,20 +236,27 @@
       color: #fff;
     }
 
-    .admin-login-link {
+    .language-select {
       border: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 8px;
-      padding: 7px 12px;
+      min-height: 34px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.12);
       color: #fff;
       font-weight: 800;
       white-space: nowrap;
+      font: inherit;
     }
 
-    .admin-login-link:hover,
-    .admin-login-link:focus {
+    .language-select:hover,
+    .language-select:focus {
       background: #fff;
       color: var(--green-dark);
       outline: none;
+    }
+
+    .language-select option {
+      color: var(--ink);
     }
 
     .social-icon:hover,
@@ -1160,7 +1167,11 @@
           <a class="social-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">IG</a>
           <a class="social-icon" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">in</a>
         </div>
-        <a class="admin-login-link" href="admin.html">Admin Login</a>
+        <select class="language-select" id="language-select" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="mr">Marathi</option>
+          <option value="hi">Hindi</option>
+        </select>
       </div>
     </div>
   </div>
@@ -1553,12 +1564,128 @@
     const SUPABASE_ANON_KEY = "sb_publishable_Ei3Ef2mTTpPeOG7P87gTug_Bky1IF5A";
     const SUPABASE_TABLE = "volunteer_registrations";
     const SUPABASE_REVIEW_TABLE = "trusted_reviews";
+    const SUPABASE_STATS_TABLE = "trust_impact_stats";
     const volunteerCount = document.getElementById("volunteer-count");
     const TRUST_STATS_KEY = "trustImpactStats";
     const TRUST_NOTICE_KEY = "trustNotice";
     const TRUST_REVIEWS_KEY = "trustReviews";
+    const TRUST_LANGUAGE_KEY = "trustLanguage";
     let allReviews = [];
     let activeReviewIndex = 0;
+
+    const translations = {
+      en: {
+        topbar: "Sankalp Charitable Trust | Help today. Hope for tomorrow.",
+        navHome: "Home",
+        navAbout: "About",
+        navWork: "Work",
+        navGetInvolved: "Get Involved",
+        navDonation: "Donation",
+        navVolunteer: "Be a Volunteer",
+        navGallery: "Gallery",
+        navReviews: "Reviews",
+        navContact: "Contact",
+        donateNow: "Donate Now",
+        heroEyebrow: "Registered charitable work for people in need",
+        heroText: "We work to provide food, education, medical assistance, and community support to needy families, children, elderly people, and the underprivileged sections of society.",
+        donationDetails: "Donation Details",
+        ourSocialWork: "Our Social Work",
+        foodStat: "Food packets distributed",
+        studentStat: "Students supported",
+        medicalStat: "Medical help cases",
+        volunteerStat: "Volunteers joined trust",
+        aboutTitle: "About Sankalp Charitable Trust",
+        aboutText: "The Trust is committed to providing practical support that reaches those in need directly, respectfully, and in a timely manner.",
+        whyTitle: "Why We Started This Trust",
+        whyText: "Sankalp Charitable Trust was started after seeing families around us struggle for basic needs like food, education, medical help, and timely support. The motivation behind this trust is simple: no person should feel alone during a difficult time. We began this work to connect caring people with real needs in the community and to serve with honesty, respect, and responsibility.",
+        workTitle: "Our Charitable Activities",
+        workText: "The Trust is committed to providing practical support that reaches those in need directly, respectfully, and in a timely manner.",
+        galleryTitle: "Photos from Our Community Service Programs",
+        galleryText: "This section can be updated with photographs from your real social service initiatives. Sample images are currently displayed for demonstration purposes.",
+        reviewsTitle: "Trusted Person Review",
+        reviewsText: "Visitors can share their name and review for the trust. Admin can remove unsuitable reviews from the admin page.",
+        giveReview: "Give Your Review",
+        yourName: "Your Name",
+        yourReview: "Your Review",
+        submitReview: "Submit Review",
+        contactTitle: "Contact Our Team",
+        contactText: "Get in touch with the Trust for volunteering, donation receipts, or to request assistance and support."
+      },
+      mr: {
+        topbar: "संकल्प चॅरिटेबल ट्रस्ट | आज मदत करा. उद्यासाठी आशा द्या.",
+        navHome: "मुख्यपृष्ठ",
+        navAbout: "माहिती",
+        navWork: "कार्य",
+        navGetInvolved: "सहभाग",
+        navDonation: "देणगी",
+        navVolunteer: "स्वयंसेवक व्हा",
+        navGallery: "गॅलरी",
+        navReviews: "अभिप्राय",
+        navContact: "संपर्क",
+        donateNow: "आता देणगी द्या",
+        heroEyebrow: "गरजू लोकांसाठी नोंदणीकृत सामाजिक कार्य",
+        heroText: "आम्ही गरजू कुटुंबे, मुले, ज्येष्ठ नागरिक आणि वंचित घटकांसाठी अन्न, शिक्षण, वैद्यकीय मदत आणि समाज सहाय्य देण्यासाठी काम करतो.",
+        donationDetails: "देणगी माहिती",
+        ourSocialWork: "आमचे सामाजिक कार्य",
+        foodStat: "अन्न पॅकेट्स वितरित",
+        studentStat: "विद्यार्थ्यांना मदत",
+        medicalStat: "वैद्यकीय मदत प्रकरणे",
+        volunteerStat: "ट्रस्टमध्ये जोडलेले स्वयंसेवक",
+        aboutTitle: "संकल्प चॅरिटेबल ट्रस्ट बद्दल",
+        aboutText: "ट्रस्ट गरजूंपर्यंत थेट, सन्मानाने आणि वेळेवर प्रत्यक्ष मदत पोहोचवण्यास कटिबद्ध आहे.",
+        whyTitle: "हा ट्रस्ट का सुरू केला",
+        whyText: "आपल्या आजूबाजूच्या कुटुंबांना अन्न, शिक्षण, वैद्यकीय मदत आणि वेळेवर सहाय्य यांसारख्या मूलभूत गरजांसाठी संघर्ष करताना पाहून संकल्प चॅरिटेबल ट्रस्ट सुरू झाला. या ट्रस्टची प्रेरणा साधी आहे: अडचणीच्या काळात कोणीही एकटे वाटू नये. समाजातील खरी गरज आणि मदत करू इच्छिणारे लोक यांना जोडण्यासाठी आम्ही हे काम सुरू केले.",
+        workTitle: "आमची सेवा कार्ये",
+        workText: "ट्रस्ट गरजूंपर्यंत थेट, सन्मानाने आणि वेळेवर प्रत्यक्ष मदत पोहोचवण्यास कटिबद्ध आहे.",
+        galleryTitle: "समाज सेवा कार्यक्रमांची छायाचित्रे",
+        galleryText: "या विभागात तुमच्या वास्तविक सामाजिक सेवा उपक्रमांची छायाचित्रे जोडता येतील. सध्या नमुना छायाचित्रे दाखवली आहेत.",
+        reviewsTitle: "विश्वासू व्यक्तींचे अभिप्राय",
+        reviewsText: "भेट देणारे लोक आपले नाव आणि अभिप्राय देऊ शकतात. अयोग्य अभिप्राय admin पेजवरून काढता येतील.",
+        giveReview: "तुमचा अभिप्राय द्या",
+        yourName: "तुमचे नाव",
+        yourReview: "तुमचा अभिप्राय",
+        submitReview: "अभिप्राय सबमिट करा",
+        contactTitle: "आमच्याशी संपर्क करा",
+        contactText: "स्वयंसेवा, देणगी पावती किंवा मदतीसाठी ट्रस्टशी संपर्क साधा."
+      },
+      hi: {
+        topbar: "संकल्प चैरिटेबल ट्रस्ट | आज मदद करें. कल के लिए आशा दें.",
+        navHome: "होम",
+        navAbout: "परिचय",
+        navWork: "कार्य",
+        navGetInvolved: "जुड़ें",
+        navDonation: "दान",
+        navVolunteer: "स्वयंसेवक बनें",
+        navGallery: "गैलरी",
+        navReviews: "रिव्यू",
+        navContact: "संपर्क",
+        donateNow: "अभी दान करें",
+        heroEyebrow: "जरूरतमंद लोगों के लिए पंजीकृत सामाजिक कार्य",
+        heroText: "हम जरूरतमंद परिवारों, बच्चों, बुजुर्गों और वंचित वर्गों के लिए भोजन, शिक्षा, चिकित्सा सहायता और सामुदायिक सहयोग का काम करते हैं.",
+        donationDetails: "दान जानकारी",
+        ourSocialWork: "हमारा सामाजिक कार्य",
+        foodStat: "फूड पैकेट वितरित",
+        studentStat: "विद्यार्थियों को सहायता",
+        medicalStat: "चिकित्सा सहायता मामले",
+        volunteerStat: "ट्रस्ट से जुड़े स्वयंसेवक",
+        aboutTitle: "संकल्प चैरिटेबल ट्रस्ट के बारे में",
+        aboutText: "ट्रस्ट जरूरतमंद लोगों तक सीधे, सम्मानपूर्वक और समय पर व्यावहारिक सहायता पहुंचाने के लिए प्रतिबद्ध है.",
+        whyTitle: "यह ट्रस्ट क्यों शुरू किया",
+        whyText: "हमारे आसपास परिवारों को भोजन, शिक्षा, चिकित्सा मदद और समय पर सहायता जैसी बुनियादी जरूरतों के लिए संघर्ष करते देखकर संकल्प चैरिटेबल ट्रस्ट शुरू किया गया. इस ट्रस्ट की प्रेरणा सरल है: कठिन समय में कोई भी अकेला महसूस न करे. हमने यह काम समाज की वास्तविक जरूरतों को मदद करने वाले लोगों से जोड़ने के लिए शुरू किया.",
+        workTitle: "हमारी सेवा गतिविधियां",
+        workText: "ट्रस्ट जरूरतमंद लोगों तक सीधे, सम्मानपूर्वक और समय पर व्यावहारिक सहायता पहुंचाने के लिए प्रतिबद्ध है.",
+        galleryTitle: "हमारे सामुदायिक सेवा कार्यक्रमों की तस्वीरें",
+        galleryText: "इस सेक्शन में आपके वास्तविक सामाजिक कार्य की तस्वीरें जोड़ी जा सकती हैं. अभी नमूना तस्वीरें दिखाई गई हैं.",
+        reviewsTitle: "विश्वसनीय व्यक्तियों के रिव्यू",
+        reviewsText: "विजिटर अपना नाम और रिव्यू दे सकते हैं. गलत रिव्यू admin page से हटाए जा सकते हैं.",
+        giveReview: "अपना रिव्यू दें",
+        yourName: "आपका नाम",
+        yourReview: "आपका रिव्यू",
+        submitReview: "रिव्यू सबमिट करें",
+        contactTitle: "हमसे संपर्क करें",
+        contactText: "स्वयंसेवा, दान रसीद या सहायता के लिए ट्रस्ट से संपर्क करें."
+      }
+    };
 
     function supabaseEnabled() {
       return Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
@@ -1657,8 +1784,19 @@
       }
     }
 
-    function loadImpactStats() {
-      const stats = JSON.parse(localStorage.getItem(TRUST_STATS_KEY) || "{}");
+    async function loadImpactStats() {
+      let stats = JSON.parse(localStorage.getItem(TRUST_STATS_KEY) || "{}");
+      if (supabaseEnabled()) {
+        const rows = await supabaseRequest(`${SUPABASE_STATS_TABLE}?select=*&id=eq.main&limit=1`);
+        if (rows[0]) {
+          stats = {
+            foodPackets: rows[0].food_packets,
+            studentsSupported: rows[0].students_supported,
+            medicalCases: rows[0].medical_cases
+          };
+          localStorage.setItem(TRUST_STATS_KEY, JSON.stringify(stats));
+        }
+      }
       const foodCount = document.getElementById("food-count");
       const studentCount = document.getElementById("student-count");
       const medicalCount = document.getElementById("medical-count");
@@ -1767,6 +1905,67 @@
         '"': "&quot;",
         "'": "&#039;"
       }[char]));
+    }
+
+    function setText(selector, value) {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = value;
+    }
+
+    function setStatLabel(id, value) {
+      const count = document.getElementById(id);
+      if (count?.parentNode?.lastChild) {
+        count.parentNode.lastChild.nodeValue = value;
+      }
+    }
+
+    function setLabelText(selector, value) {
+      const field = document.querySelector(selector);
+      const label = field?.closest("label");
+      if (!label) return;
+      const node = Array.from(label.childNodes).find((child) => child.nodeType === Node.TEXT_NODE && child.textContent.trim());
+      if (node) node.textContent = `\n                  ${value}\n                  `;
+    }
+
+    function applyLanguage(language) {
+      const t = translations[language] || translations.en;
+      document.documentElement.lang = language;
+      localStorage.setItem(TRUST_LANGUAGE_KEY, language);
+      setText(".topbar-inner > span", t.topbar);
+      setText(".nav-links > a[href='#home']", t.navHome);
+      setText(".nav-links > a[href='#about']", t.navAbout);
+      setText(".nav-links > a[href='#work']", t.navWork);
+      setText("#get-involved-dropdown summary", t.navGetInvolved);
+      setText(".dropdown-menu a[data-open-modal='payment-window']", t.navDonation);
+      setText(".dropdown-menu a[data-open-modal='volunteer-window']", t.navVolunteer);
+      setText(".nav-links > a[href='#gallery']", t.navGallery);
+      setText(".nav-links > a[href='#reviews']", t.navReviews);
+      setText(".nav-links > a[href='#contact']", t.navContact);
+      setText(".nav-links .btn-primary", t.donateNow);
+      setText(".eyebrow", t.heroEyebrow);
+      setText(".hero-content p", t.heroText);
+      setText(".hero-actions .btn-primary", t.donationDetails);
+      setText(".hero-actions .btn-light", t.ourSocialWork);
+      setStatLabel("food-count", t.foodStat);
+      setStatLabel("student-count", t.studentStat);
+      setStatLabel("medical-count", t.medicalStat);
+      setStatLabel("volunteer-count", t.volunteerStat);
+      setText("#about .section-head h2", t.aboutTitle);
+      setText("#about .section-head p", t.aboutText);
+      setText(".about-story h3", t.whyTitle);
+      setText(".about-story p", t.whyText);
+      setText("#work .section-head h2", t.workTitle);
+      setText("#work .section-head p", t.workText);
+      setText("#gallery .section-head h2", t.galleryTitle);
+      setText("#gallery .section-head p", t.galleryText);
+      setText("#reviews .section-head h2", t.reviewsTitle);
+      setText("#reviews .section-head p", t.reviewsText);
+      setText(".review-form-box h3", t.giveReview);
+      setLabelText("#review-form input[name='name']", t.yourName);
+      setLabelText("#review-form textarea[name='review']", t.yourReview);
+      setText("#review-form .btn-primary", t.submitReview);
+      setText("#contact .section-head h2", t.contactTitle);
+      setText("#contact .section-head p", t.contactText);
     }
 
     function setInvolvedOptionState(activeModalId) {
@@ -1957,8 +2156,24 @@
       });
     });
 
-    loadImpactStats();
+    document.getElementById("language-select")?.addEventListener("change", (event) => {
+      applyLanguage(event.target.value);
+    });
+
+    loadImpactStats().catch(() => {
+      const stats = JSON.parse(localStorage.getItem(TRUST_STATS_KEY) || "{}");
+      const foodCount = document.getElementById("food-count");
+      const studentCount = document.getElementById("student-count");
+      const medicalCount = document.getElementById("medical-count");
+      if (foodCount) foodCount.textContent = `${stats.foodPackets || 0}+`;
+      if (studentCount) studentCount.textContent = `${stats.studentsSupported || 0}+`;
+      if (medicalCount) medicalCount.textContent = `${stats.medicalCases || 0}+`;
+    });
     loadNotice();
+    const savedLanguage = localStorage.getItem(TRUST_LANGUAGE_KEY) || "en";
+    const languageSelect = document.getElementById("language-select");
+    if (languageSelect) languageSelect.value = savedLanguage;
+    applyLanguage(savedLanguage);
     renderReviews().catch(() => {});
     updateVolunteerCount().catch(() => {
       if (volunteerCount) {

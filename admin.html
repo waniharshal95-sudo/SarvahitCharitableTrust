@@ -380,6 +380,7 @@
     const SUPABASE_ANON_KEY = "sb_publishable_Ei3Ef2mTTpPeOG7P87gTug_Bky1IF5A";
     const SUPABASE_TABLE = "volunteer_registrations";
     const SUPABASE_REVIEW_TABLE = "trusted_reviews";
+    const SUPABASE_STATS_TABLE = "trust_impact_stats";
     const TRUST_STATS_KEY = "trustImpactStats";
     const TRUST_NOTICE_KEY = "trustNotice";
     const TRUST_REVIEWS_KEY = "trustReviews";
@@ -488,12 +489,41 @@
       }, 1800);
     }
 
-    function loadStatsForm() {
-      const stats = JSON.parse(localStorage.getItem(TRUST_STATS_KEY) || "{}");
+    async function loadStatsForm() {
+      let stats = JSON.parse(localStorage.getItem(TRUST_STATS_KEY) || "{}");
+      if (supabaseEnabled()) {
+        const rows = await supabaseRequest(`${SUPABASE_STATS_TABLE}?select=*&id=eq.main&limit=1`);
+        if (rows[0]) {
+          stats = {
+            foodPackets: rows[0].food_packets,
+            studentsSupported: rows[0].students_supported,
+            medicalCases: rows[0].medical_cases
+          };
+          localStorage.setItem(TRUST_STATS_KEY, JSON.stringify(stats));
+        }
+      }
       const form = document.getElementById("stats-form");
       form.foodPackets.value = stats.foodPackets || 0;
       form.studentsSupported.value = stats.studentsSupported || 0;
       form.medicalCases.value = stats.medicalCases || 0;
+    }
+
+    async function saveImpactStats(stats) {
+      localStorage.setItem(TRUST_STATS_KEY, JSON.stringify(stats));
+      if (!supabaseEnabled()) return;
+      await supabaseRequest(`${SUPABASE_STATS_TABLE}?on_conflict=id`, {
+        method: "POST",
+        headers: {
+          Prefer: "resolution=merge-duplicates,return=representation"
+        },
+        body: JSON.stringify({
+          id: "main",
+          food_packets: stats.foodPackets,
+          students_supported: stats.studentsSupported,
+          medical_cases: stats.medicalCases,
+          updated_at: new Date().toISOString()
+        })
+      });
     }
 
     function loadNoticeForm() {
@@ -559,20 +589,20 @@
       }
       document.getElementById("login-panel").style.display = "none";
       document.getElementById("dashboard").classList.add("is-visible");
-      loadStatsForm();
+      await loadStatsForm();
       loadNoticeForm();
       await renderVolunteers();
       await renderReviews();
     });
 
-    document.getElementById("stats-form").addEventListener("submit", (event) => {
+    document.getElementById("stats-form").addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = Object.fromEntries(new FormData(event.currentTarget).entries());
-      localStorage.setItem(TRUST_STATS_KEY, JSON.stringify({
+      await saveImpactStats({
         foodPackets: Number(data.foodPackets || 0),
         studentsSupported: Number(data.studentsSupported || 0),
         medicalCases: Number(data.medicalCases || 0)
-      }));
+      });
       showMessage("stats-message");
     });
 
