@@ -544,12 +544,35 @@
       });
     }
 
-    function loadNoticeForm() {
-      const notice = JSON.parse(localStorage.getItem(TRUST_NOTICE_KEY) || "{}");
+    async function loadNoticeForm() {
+      let notice = JSON.parse(localStorage.getItem(TRUST_NOTICE_KEY) || "{}");
+      if (supabaseEnabled()) {
+        const rows = await supabaseRequest(`${SUPABASE_STATS_TABLE}?select=notice_title,notice_message&id=eq.main&limit=1`);
+        if (rows[0] && (rows[0].notice_title || rows[0].notice_message)) {
+          notice = {
+            title: rows[0].notice_title,
+            message: rows[0].notice_message
+          };
+          localStorage.setItem(TRUST_NOTICE_KEY, JSON.stringify(notice));
+        }
+      }
       const form = document.getElementById("notice-form");
       form.message.value = notice.message || "New food distribution and education support activities will be announced here.";
       document.getElementById("notice-preview-title").textContent = notice.title || "Notice";
       document.getElementById("notice-preview-message").textContent = form.message.value;
+    }
+
+    async function saveNotice(notice) {
+      localStorage.setItem(TRUST_NOTICE_KEY, JSON.stringify(notice));
+      if (!supabaseEnabled()) return;
+      await supabaseRequest(`${SUPABASE_STATS_TABLE}?id=eq.main`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          notice_title: notice.title,
+          notice_message: notice.message,
+          updated_at: new Date().toISOString()
+        })
+      });
     }
 
     async function renderVolunteers() {
@@ -608,7 +631,7 @@
       document.getElementById("login-panel").style.display = "none";
       document.getElementById("dashboard").classList.add("is-visible");
       await loadStatsForm();
-      loadNoticeForm();
+      await loadNoticeForm();
       await renderVolunteers();
       await renderReviews();
     });
@@ -624,14 +647,14 @@
       showMessage("stats-message");
     });
 
-    document.getElementById("notice-form").addEventListener("submit", (event) => {
+    document.getElementById("notice-form").addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = Object.fromEntries(new FormData(event.currentTarget).entries());
       const title = data.customTitle?.trim() || data.title;
-      localStorage.setItem(TRUST_NOTICE_KEY, JSON.stringify({
+      await saveNotice({
         title,
         message: data.message
-      }));
+      });
       document.getElementById("notice-preview-title").textContent = title;
       document.getElementById("notice-preview-message").textContent = data.message;
       showMessage("notice-message");

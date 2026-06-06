@@ -59,7 +59,7 @@
     }
 
     .topbar-inner {
-      max-width: 1180px;
+      max-width: 1408px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -74,12 +74,25 @@
       background: rgba(251, 250, 247, 0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
+      overflow: visible;
+    }
+
+    .nav-logo {
+      width: 72px;
+      height: 72px;
+      display: block;
+      object-fit: contain;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      flex: 0 0 auto;
     }
 
     .nav {
-      max-width: 1180px;
+      max-width: 1408px;
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 8px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -93,27 +106,6 @@
       font-family: "Poppins", system-ui, sans-serif;
       font-weight: 800;
       letter-spacing: 0;
-    }
-
-    .brand-mark {
-      width: 46px;
-      height: 46px;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      background: linear-gradient(135deg, var(--green), var(--gold));
-      font-size: 23px;
-      font-weight: 800;
-      flex: 0 0 auto;
-      overflow: hidden;
-    }
-
-    .brand-mark img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
     }
 
     .brand small {
@@ -342,6 +334,19 @@
 
     .hero-content {
       max-width: 720px;
+    }
+
+    .hero-logo {
+      width: 154px;
+      height: 154px;
+      display: block;
+      object-fit: contain;
+      margin: 0 0 18px;
+      padding: 7px;
+      border-radius: 8px;
+      background: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
     }
 
     .eyebrow {
@@ -711,6 +716,102 @@
       padding: 12px;
     }
 
+    .donation-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .donation-step {
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f4f5f2;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .donation-step.is-active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
+
+    .donation-panel[hidden] {
+      display: none;
+    }
+
+    .donor-summary {
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--gold);
+      background: #fff6df;
+      border-radius: 8px;
+    }
+
+    .donor-summary strong {
+      color: var(--green-dark);
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .payment-grid .qr-preview {
+      margin: 18px auto 0;
+    }
+
+    .proof-upload {
+      display: grid;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f7f8f5;
+      font-weight: 700;
+    }
+
+    .proof-upload input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      font: inherit;
+    }
+
+    .donation-status {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #edf7ef;
+      color: var(--green-dark);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .certificate-ready {
+      padding: 28px 18px;
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      background: #fffdf7;
+      text-align: center;
+    }
+
+    .certificate-ready h3 {
+      color: var(--green-dark);
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -932,6 +1033,58 @@
       background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
     }
 
+    .blog-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .blog-item {
+      position: relative;
+      min-height: 260px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #14231c;
+    }
+
+    .blog-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.25s ease;
+    }
+
+    .blog-item:hover img,
+    .blog-item:focus img {
+      transform: scale(1.04);
+    }
+
+    .blog-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 18px;
+      color: #fff;
+      font-weight: 800;
+      background: linear-gradient(transparent 35%, rgba(0, 0, 0, 0.8));
+    }
+
+    .youtube-symbol {
+      width: 46px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      background: #e62117;
+      color: #fff;
+      font-size: 17px;
+    }
+
     .gallery-modal-window {
       width: min(980px, 100%);
     }
@@ -1059,6 +1212,10 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .blog-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
       .gallery figure:first-child {
         grid-row: auto;
         grid-column: span 2;
@@ -1081,12 +1238,12 @@
       }
 
       .brand {
-        align-items: flex-start;
+        align-items: center;
       }
 
-      .brand-mark {
-        width: 42px;
-        height: 42px;
+      .nav-logo {
+        width: 58px;
+        height: 58px;
       }
 
       .nav-links {
@@ -1162,6 +1319,20 @@
       .form-grid {
         grid-template-columns: 1fr;
       }
+
+      .donation-steps,
+      .payment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-logo {
+        width: 128px;
+        height: 128px;
+      }
+
+      .blog-gallery {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -1174,6 +1345,7 @@
           <a class="social-icon" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">f</a>
           <a class="social-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">IG</a>
           <a class="social-icon" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">in</a>
+          <a class="social-icon" href="https://www.youtube.com/results?search_query=Sarvahit+Charitable+Trust" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">&#9654;</a>
         </div>
         <select class="language-select" id="language-select" aria-label="Select language">
           <option value="en">English</option>
@@ -1187,7 +1359,7 @@
   <header>
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#home" aria-label="Sarvahit Charitable Trust home">
-        <span class="brand-mark"><img src="https://drive.google.com/thumbnail?id=1jYBdoDbqSILVKEYxOeKw8KGM3GEMVopG&sz=w200" alt="Sarvahit Charitable Trust logo" /></span>
+        <img class="nav-logo" src="https://drive.google.com/thumbnail?id=1jYBdoDbqSILVKEYxOeKw8KGM3GEMVopG&sz=w300" alt="Sarvahit Charitable Trust logo" />
         <span>
           Sarvahit Charitable Trust
           <small>Working for the Welfare of Everyone</small>
@@ -1200,14 +1372,15 @@
         <details class="dropdown" id="get-involved-dropdown">
           <summary>Get Involved</summary>
           <div class="dropdown-menu">
-            <a href="#payment-window" class="involved-option" data-open-modal="payment-window">Donation</a>
+            <a href="#donor-window" class="involved-option" data-open-modal="donor-window">Donation</a>
             <a href="#volunteer-window" class="involved-option" data-open-modal="volunteer-window">Be a Volunteer</a>
           </div>
         </details>
         <a href="#gallery">Gallery</a>
+        <a href="#blog">Blog</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
-        <a class="btn btn-primary" href="#payment-window" data-open-modal="payment-window">Donate Now</a>
+        <a class="btn btn-primary" href="#donor-window" data-open-modal="donor-window">Donate Now</a>
       </div>
     </nav>
   </header>
@@ -1216,11 +1389,12 @@
     <section class="hero" aria-label="Sarvahit Charitable Trust introduction">
       <div class="hero-inner">
         <div class="hero-content">
+          <img class="hero-logo" src="https://drive.google.com/thumbnail?id=1jYBdoDbqSILVKEYxOeKw8KGM3GEMVopG&sz=w500" alt="Sarvahit Charitable Trust logo" />
           <div class="eyebrow">Registered charitable work for people in need</div>
           <h1>Sarvahit Charitable Trust</h1>
           <p>We work to provide food, education, medical assistance, and community support to needy families, children, elderly people, and the underprivileged sections of society.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#payment-window" data-open-modal="payment-window">Donation Details</a>
+            <a class="btn btn-primary" href="#donor-window" data-open-modal="donor-window">Donation Details</a>
             <a class="btn btn-light" href="#work">Our Social Work</a>
           </div>
         </div>
@@ -1375,6 +1549,29 @@
       </div>
     </section>
 
+    <section id="blog">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Sarvahit Trust Blog and Video Updates</h2>
+          <p>Watch our social work, donation activities, community programs, and latest trust updates on YouTube.</p>
+        </div>
+        <div class="blog-gallery">
+          <a class="blog-item" href="https://www.youtube.com/results?search_query=Sarvahit+Charitable+Trust+social+work" target="_blank" rel="noopener">
+            <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=900&q=82" alt="Sarvahit Trust food distribution video" />
+            <span class="blog-overlay"><span class="youtube-symbol">&#9654;</span>Food Distribution Updates</span>
+          </a>
+          <a class="blog-item" href="https://www.youtube.com/results?search_query=Sarvahit+Charitable+Trust+education" target="_blank" rel="noopener">
+            <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=900&q=82" alt="Sarvahit Trust education support video" />
+            <span class="blog-overlay"><span class="youtube-symbol">&#9654;</span>Education Support Videos</span>
+          </a>
+          <a class="blog-item" href="https://www.youtube.com/results?search_query=Sarvahit+Charitable+Trust+community" target="_blank" rel="noopener">
+            <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=900&q=82" alt="Sarvahit Trust community work video" />
+            <span class="blog-overlay"><span class="youtube-symbol">&#9654;</span>Community Program Videos</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="reviews">
       <div class="wrap">
         <div class="section-head">
@@ -1436,42 +1633,98 @@
     </section>
   </main>
 
-  <div class="modal-overlay" id="payment-window" hidden role="dialog" aria-modal="true" aria-labelledby="payment-title">
+  <div class="modal-overlay" id="donor-window" hidden role="dialog" aria-modal="true" aria-labelledby="donor-title">
     <div class="modal-window">
       <div class="modal-head">
-        <h2 id="payment-title">Payment Method</h2>
-        <button class="modal-close" type="button" data-close-modal aria-label="Close payment window">x</button>
+        <h2 id="donor-title">Donate to Sarvahit Charitable Trust</h2>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close donation window">x</button>
       </div>
       <div class="modal-body">
-        <p>Donate through bank transfer or UPI. After payment, please send the screenshot through WhatsApp or email for receipt confirmation.</p>
-        <p>Email: <a href="mailto:sarvahitcharitabletrust2024@gmail.com">sarvahitcharitabletrust2024@gmail.com</a></p>
-        <table class="bank-table" aria-label="Donation payment method">
-          <tr>
-            <th>Account Name</th>
-            <td>Sarvahit Charitable Trust</td>
-          </tr>
-          <tr>
-            <th>Account Number</th>
-            <td>123456789</td>
-          </tr>
-          <tr>
-            <th>Bank Name</th>
-            <td>Satat Bank Of India</td>
-          </tr>
-          <tr>
-            <th>IFSC Code</th>
-            <td>SBIN0000000</td>
-          </tr>
-          <tr>
-            <th>Branch</th>
-            <td>Chinchwadgaon</td>
-          </tr>
-        </table>
-        <div class="upi">UPI ID: <span class="upi-value">Sarvahitcharitabletrust@upi</span></div>
-        <div class="payment-actions">
-          <button class="copy-btn" type="button" data-copy-upi title="Copy UPI ID">&#128203; Copy UPI</button>
-          <button class="qr-btn" type="button" data-open-modal="qr-window">Show QR Code</button>
+        <div class="donation-steps" aria-label="Donation steps">
+          <div class="donation-step is-active" data-donation-step="1">1. Donor Details</div>
+          <div class="donation-step" data-donation-step="2">2. Payment Proof</div>
+          <div class="donation-step" data-donation-step="3">3. Certificate</div>
         </div>
+
+        <section class="donation-panel" id="donor-details-panel">
+          <form id="donor-form">
+            <div class="form-grid">
+              <label>
+                Full Name
+                <input name="name" autocomplete="name" pattern="[A-Za-z ]+" data-letters-only required />
+              </label>
+              <label>
+                Mobile Number
+                <input name="phone" type="tel" autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" data-numbers-only required />
+              </label>
+              <label>
+                Email
+                <input name="email" type="email" autocomplete="email" required />
+              </label>
+              <label>
+                City
+                <input name="city" autocomplete="address-level2" pattern="[A-Za-z ]+" data-letters-only required />
+              </label>
+              <label>
+                Donation Amount
+                <input name="amount" type="number" inputmode="decimal" min="1" step="0.01" required />
+              </label>
+              <label>
+                Donation Purpose
+                <select name="purpose" required>
+                  <option value="">Select purpose</option>
+                  <option>Food Distribution</option>
+                  <option>Education Support</option>
+                  <option>Medical Help</option>
+                  <option>Community Welfare</option>
+                  <option>General Donation</option>
+                </select>
+              </label>
+              <div class="full">
+                <button class="btn btn-primary" type="submit">Confirm Details and Continue</button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="donation-panel" id="donor-payment-panel" hidden>
+          <div class="donor-summary" id="donor-summary"></div>
+          <p>Complete your payment using bank transfer, UPI, or the QR code below. Then attach the payment screenshot.</p>
+          <p>Email: <a href="mailto:sarvahitcharitabletrust2024@gmail.com">sarvahitcharitabletrust2024@gmail.com</a></p>
+          <div class="payment-grid">
+            <div>
+              <table class="bank-table" aria-label="Donation payment method">
+                <tr><th>Account Name</th><td>Sarvahit Charitable Trust</td></tr>
+                <tr><th>Account Number</th><td>123456789</td></tr>
+                <tr><th>Bank Name</th><td>Satat Bank Of India</td></tr>
+                <tr><th>IFSC Code</th><td>SBIN0000000</td></tr>
+                <tr><th>Branch</th><td>Chinchwadgaon</td></tr>
+              </table>
+              <div class="upi">UPI ID: <span class="upi-value">Sarvahitcharitabletrust@upi</span></div>
+              <div class="payment-actions">
+                <button class="copy-btn" type="button" data-copy-upi title="Copy UPI ID">&#128203; Copy UPI</button>
+              </div>
+            </div>
+            <img class="qr-preview" src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=Sarvahitcharitabletrust%40upi" alt="Donation QR code" />
+          </div>
+          <label class="proof-upload">
+            Attach Payment Screenshot
+            <input id="payment-screenshot" type="file" accept="image/png,image/jpeg,image/webp" required />
+          </label>
+          <div class="payment-actions">
+            <button class="btn btn-light" type="button" id="edit-donor-details">Edit Donor Details</button>
+            <button class="btn btn-primary" type="button" id="confirm-donation">Confirm Payment</button>
+          </div>
+          <div class="donation-status" id="donation-status"></div>
+        </section>
+
+        <section class="donation-panel" id="donor-certificate-panel" hidden>
+          <div class="certificate-ready">
+            <h3>Thank You for Your Support</h3>
+            <p>Your payment details have been submitted. Your personalized appreciation certificate is ready.</p>
+            <button class="btn btn-primary" type="button" id="download-certificate">Download Certificate PDF</button>
+          </div>
+        </section>
       </div>
     </div>
   </div>
@@ -1569,12 +1822,15 @@
       <span>Made for social work, donation and community support.</span>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script>
     const SUPABASE_URL = "https://adbwqjzlqkaatvhzpudk.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_Ei3Ef2mTTpPeOG7P87gTug_Bky1IF5A";
     const SUPABASE_TABLE = "volunteer_registrations";
     const SUPABASE_REVIEW_TABLE = "trusted_reviews";
     const SUPABASE_STATS_TABLE = "trust_impact_stats";
+    const SUPABASE_DONATION_TABLE = "donation_records";
+    const PAYMENT_BUCKET = "payment-screenshots";
     const volunteerCount = document.getElementById("volunteer-count");
     const TRUST_STATS_KEY = "trustImpactStats";
     const TRUST_NOTICE_KEY = "trustNotice";
@@ -1582,6 +1838,7 @@
     const TRUST_LANGUAGE_KEY = "trustLanguage";
     let allReviews = [];
     let activeReviewIndex = 0;
+    let activeDonation = null;
 
     const translations = {
       en: {
@@ -1593,6 +1850,7 @@
         navDonation: "Donation",
         navVolunteer: "Be a Volunteer",
         navGallery: "Gallery",
+        navBlog: "Blog",
         navReviews: "Reviews",
         navContact: "Contact",
         donateNow: "Donate Now",
@@ -1815,12 +2073,136 @@
       if (medicalCount) medicalCount.textContent = `${stats.medicalCases || 0}+`;
     }
 
-    function loadNotice() {
-      const notice = JSON.parse(localStorage.getItem(TRUST_NOTICE_KEY) || "{}");
+    async function loadNotice() {
+      let notice = JSON.parse(localStorage.getItem(TRUST_NOTICE_KEY) || "{}");
+      if (supabaseEnabled()) {
+        const rows = await supabaseRequest(`${SUPABASE_STATS_TABLE}?select=notice_title,notice_message&id=eq.main&limit=1`);
+        if (rows[0] && (rows[0].notice_title || rows[0].notice_message)) {
+          notice = {
+            title: rows[0].notice_title,
+            message: rows[0].notice_message
+          };
+          localStorage.setItem(TRUST_NOTICE_KEY, JSON.stringify(notice));
+        }
+      }
       const title = document.getElementById("notice-title");
       const text = document.getElementById("notice-text");
       if (title && notice.title) title.textContent = notice.title;
       if (text && notice.message) text.textContent = notice.message;
+    }
+
+    function setDonationStep(step) {
+      document.querySelectorAll("[data-donation-step]").forEach((item) => {
+        item.classList.toggle("is-active", Number(item.dataset.donationStep) === step);
+      });
+      document.getElementById("donor-details-panel").hidden = step !== 1;
+      document.getElementById("donor-payment-panel").hidden = step !== 2;
+      document.getElementById("donor-certificate-panel").hidden = step !== 3;
+    }
+
+    async function uploadPaymentScreenshot(file, certificateId) {
+      if (!supabaseEnabled()) {
+        return `local/${certificateId}-${file.name}`;
+      }
+      const extension = (file.name.split(".").pop() || "jpg").replace(/[^A-Za-z0-9]/g, "");
+      const path = `${new Date().getFullYear()}/${certificateId}.${extension}`;
+      const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${PAYMENT_BUCKET}/${path}`, {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": file.type || "image/jpeg",
+          "x-upsert": "false"
+        },
+        body: file
+      });
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+      return path;
+    }
+
+    async function saveDonation(donation) {
+      if (!supabaseEnabled()) {
+        const donations = JSON.parse(localStorage.getItem("trustDonations") || "[]");
+        donations.unshift(donation);
+        localStorage.setItem("trustDonations", JSON.stringify(donations));
+        return;
+      }
+      await supabaseRequest(SUPABASE_DONATION_TABLE, {
+        method: "POST",
+        body: JSON.stringify({
+          donor_name: donation.name,
+          email: donation.email,
+          phone: donation.phone,
+          city: donation.city,
+          amount: donation.amount,
+          purpose: donation.purpose,
+          screenshot_path: donation.screenshotPath,
+          payment_status: "submitted",
+          certificate_id: donation.certificateId
+        })
+      });
+    }
+
+    function downloadCertificate() {
+      if (!activeDonation || !window.jspdf) return;
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const center = pageWidth / 2;
+      const date = new Intl.DateTimeFormat("en-IN", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }).format(new Date());
+
+      doc.setFillColor(255, 253, 247);
+      doc.rect(0, 0, pageWidth, pageHeight, "F");
+      doc.setDrawColor(28, 92, 55);
+      doc.setLineWidth(2.2);
+      doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
+      doc.setDrawColor(196, 145, 45);
+      doc.setLineWidth(0.8);
+      doc.rect(15, 15, pageWidth - 30, pageHeight - 30);
+
+      doc.setTextColor(28, 92, 55);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(24);
+      doc.text("SARVAHIT CHARITABLE TRUST", center, 38, { align: "center" });
+      doc.setTextColor(196, 145, 45);
+      doc.setFontSize(29);
+      doc.text("CERTIFICATE OF APPRECIATION", center, 59, { align: "center" });
+      doc.setTextColor(70, 76, 72);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(14);
+      doc.text("This certificate is proudly presented to", center, 79, { align: "center" });
+      doc.setTextColor(28, 92, 55);
+      doc.setFont("times", "bolditalic");
+      doc.setFontSize(28);
+      doc.text(activeDonation.name, center, 100, { align: "center" });
+      doc.setDrawColor(196, 145, 45);
+      doc.line(72, 106, pageWidth - 72, 106);
+      doc.setTextColor(70, 76, 72);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(13);
+      doc.text(
+        `With sincere gratitude for the generous donation of INR ${Number(activeDonation.amount).toLocaleString("en-IN")} towards ${activeDonation.purpose}.`,
+        center,
+        123,
+        { align: "center", maxWidth: 225 }
+      );
+      doc.text("Your support strengthens our mission to serve people and communities in need.", center, 137, { align: "center" });
+      doc.setFontSize(11);
+      doc.text(`Date: ${date}`, 34, 169);
+      doc.text(`Certificate ID: ${activeDonation.certificateId}`, center, 169, { align: "center" });
+      doc.text("Authorized by Sarvahit Charitable Trust", pageWidth - 34, 169, { align: "right" });
+      doc.setTextColor(28, 92, 55);
+      doc.text("sarvahitcharitabletrust2024@gmail.com", center, 185, { align: "center" });
+
+      const safeName = activeDonation.name.replace(/[^A-Za-z0-9]+/g, "-");
+      doc.save(`Sarvahit-Appreciation-Certificate-${safeName}.pdf`);
     }
 
     function getLocalReviews() {
@@ -1946,9 +2328,10 @@
       setText(".nav-links > a[href='#about']", t.navAbout);
       setText(".nav-links > a[href='#work']", t.navWork);
       setText("#get-involved-dropdown summary", t.navGetInvolved);
-      setText(".dropdown-menu a[data-open-modal='payment-window']", t.navDonation);
+      setText(".dropdown-menu a[data-open-modal='donor-window']", t.navDonation);
       setText(".dropdown-menu a[data-open-modal='volunteer-window']", t.navVolunteer);
       setText(".nav-links > a[href='#gallery']", t.navGallery);
+      setText(".nav-links > a[href='#blog']", t.navBlog || "Blog");
       setText(".nav-links > a[href='#reviews']", t.navReviews);
       setText(".nav-links > a[href='#contact']", t.navContact);
       setText(".nav-links .btn-primary", t.donateNow);
@@ -1998,6 +2381,13 @@
       closeModals();
       const modal = document.getElementById(id);
       if (!modal) return;
+      if (id === "donor-window") {
+        activeDonation = null;
+        document.getElementById("donor-form")?.reset();
+        document.getElementById("payment-screenshot").value = "";
+        document.getElementById("donation-status").style.display = "none";
+        setDonationStep(1);
+      }
       modal.hidden = false;
       document.body.style.overflow = "hidden";
       setInvolvedOptionState(id);
@@ -2081,6 +2471,56 @@
         saveMessage.style.display = "block";
       }
     });
+
+    document.getElementById("donor-form")?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(event.currentTarget).entries());
+      activeDonation = {
+        ...data,
+        amount: Number(data.amount),
+        certificateId: `SCT-${Date.now().toString(36).toUpperCase()}`
+      };
+      const summary = document.getElementById("donor-summary");
+      summary.textContent = `${activeDonation.name} | INR ${activeDonation.amount.toLocaleString("en-IN")} | ${activeDonation.purpose}`;
+      setDonationStep(2);
+    });
+
+    document.getElementById("edit-donor-details")?.addEventListener("click", () => {
+      setDonationStep(1);
+    });
+
+    document.getElementById("confirm-donation")?.addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      const screenshot = document.getElementById("payment-screenshot")?.files[0];
+      const status = document.getElementById("donation-status");
+      if (!activeDonation || !screenshot) {
+        status.textContent = "Please attach your payment screenshot before confirmation.";
+        status.style.display = "block";
+        return;
+      }
+      if (screenshot.size > 8 * 1024 * 1024) {
+        status.textContent = "Please select a screenshot smaller than 8 MB.";
+        status.style.display = "block";
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = "Submitting payment details. Please wait...";
+      status.style.display = "block";
+      try {
+        const screenshotPath = await uploadPaymentScreenshot(screenshot, activeDonation.certificateId);
+        activeDonation.screenshotPath = screenshotPath;
+        await saveDonation(activeDonation);
+        status.style.display = "none";
+        setDonationStep(3);
+      } catch (error) {
+        status.textContent = "Payment details could not be submitted. Please check Supabase setup and try again.";
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    document.getElementById("download-certificate")?.addEventListener("click", downloadCertificate);
 
     document.getElementById("review-form")?.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -2179,7 +2619,11 @@
       if (studentCount) studentCount.textContent = `${stats.studentsSupported || 0}+`;
       if (medicalCount) medicalCount.textContent = `${stats.medicalCases || 0}+`;
     });
-    loadNotice();
+    loadNotice().catch(() => {
+      const notice = JSON.parse(localStorage.getItem(TRUST_NOTICE_KEY) || "{}");
+      if (notice.title) document.getElementById("notice-title").textContent = notice.title;
+      if (notice.message) document.getElementById("notice-text").textContent = notice.message;
+    });
     const savedLanguage = localStorage.getItem(TRUST_LANGUAGE_KEY) || "en";
     const languageSelect = document.getElementById("language-select");
     if (languageSelect) languageSelect.value = savedLanguage;

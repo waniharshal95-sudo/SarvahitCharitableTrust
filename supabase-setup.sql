@@ -70,8 +70,16 @@ create table if not exists public.trust_impact_stats (
   food_packets integer not null default 0,
   students_supported integer not null default 0,
   medical_cases integer not null default 0,
+  notice_title text not null default 'Notice',
+  notice_message text not null default 'New food distribution and education support activities will be announced here.',
   updated_at timestamptz not null default now()
 );
+
+alter table public.trust_impact_stats
+add column if not exists notice_title text not null default 'Notice';
+
+alter table public.trust_impact_stats
+add column if not exists notice_message text not null default 'New food distribution and education support activities will be announced here.';
 
 insert into public.trust_impact_stats (id, food_packets, students_supported, medical_cases)
 values ('main', 0, 0, 0)
@@ -100,3 +108,37 @@ for update
 to anon
 using (true)
 with check (true);
+
+create table if not exists public.donation_records (
+  id uuid primary key default gen_random_uuid(),
+  donor_name text not null,
+  email text not null,
+  phone text not null check (phone ~ '^[0-9]{10}$'),
+  city text not null,
+  amount numeric(12, 2) not null check (amount > 0),
+  purpose text not null,
+  screenshot_path text not null,
+  payment_status text not null default 'submitted',
+  certificate_id text not null unique,
+  created_at timestamptz not null default now()
+);
+
+alter table public.donation_records enable row level security;
+
+drop policy if exists "Allow public donation submission" on public.donation_records;
+create policy "Allow public donation submission"
+on public.donation_records
+for insert
+to anon
+with check (payment_status = 'submitted');
+
+insert into storage.buckets (id, name, public)
+values ('payment-screenshots', 'payment-screenshots', false)
+on conflict (id) do update set public = false;
+
+drop policy if exists "Allow public payment screenshot upload" on storage.objects;
+create policy "Allow public payment screenshot upload"
+on storage.objects
+for insert
+to anon
+with check (bucket_id = 'payment-screenshots');
