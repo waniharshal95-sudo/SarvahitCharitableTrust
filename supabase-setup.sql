@@ -118,10 +118,21 @@ create table if not exists public.donation_records (
   amount numeric(12, 2) not null check (amount > 0),
   purpose text not null,
   screenshot_path text not null,
+  screenshot_file_name text,
+  screenshot_mime_type text,
+  screenshot_storage text not null default 'supabase',
+  drive_file_url text,
+  drive_folder_year text,
   payment_status text not null default 'submitted',
   certificate_id text not null unique,
   created_at timestamptz not null default now()
 );
+
+alter table public.donation_records add column if not exists screenshot_file_name text;
+alter table public.donation_records add column if not exists screenshot_mime_type text;
+alter table public.donation_records add column if not exists screenshot_storage text not null default 'supabase';
+alter table public.donation_records add column if not exists drive_file_url text;
+alter table public.donation_records add column if not exists drive_folder_year text;
 
 alter table public.donation_records enable row level security;
 
@@ -131,6 +142,13 @@ on public.donation_records
 for insert
 to anon
 with check (payment_status = 'submitted');
+
+drop policy if exists "Allow admin donation records read" on public.donation_records;
+create policy "Allow admin donation records read"
+on public.donation_records
+for select
+to anon
+using (true);
 
 insert into storage.buckets (id, name, public)
 values ('payment-screenshots', 'payment-screenshots', false)
@@ -142,3 +160,10 @@ on storage.objects
 for insert
 to anon
 with check (bucket_id = 'payment-screenshots');
+
+drop policy if exists "Allow admin payment screenshot read" on storage.objects;
+create policy "Allow admin payment screenshot read"
+on storage.objects
+for select
+to anon
+using (bucket_id = 'payment-screenshots');
